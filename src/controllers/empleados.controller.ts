@@ -7,7 +7,15 @@ export const getEmpleados = async (req: Request, res: Response) => {
         const [result] = await conexion.query("SELECT * FROM empleado");
         res.json(result);
     } catch (error) {
-        return res.status(500).json({ mensaje: "Error en el servidor", detalle: String(error) });
+        //return res.status(500).json({ mensaje: "Error en el servidor", detalle: String(error) });
+        console.error("Error completo:", error);
+        if (error instanceof AggregateError) {
+            console.error("Errores individuales:", error.errors);
+        }
+        return res.status(500).json({
+            mensaje: "Error en el servidor",
+            detalle: error instanceof AggregateError ? error.errors.map((e) => e.message) : String(error),
+        });
     }
 };
 
