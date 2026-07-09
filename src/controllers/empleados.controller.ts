@@ -7,7 +7,7 @@ export const getEmpleados = async (req: Request, res: Response) => {
         const [result] = await conexion.query("SELECT * FROM empleado");
         res.json(result);
     } catch (error) {
-        return res.status(500).json({ mensaje: "Error en el servidor" });
+        return res.status(500).json({ mensaje: "Error en el servidor", detalle: String(error) });
     }
 };
 
@@ -19,7 +19,7 @@ export const getEmpleado = async (req: Request, res: Response) => {
 
         res.json(result[0]);
     } catch (error) {
-        return res.status(500).json({ mensaje: "Error en el servidor" });
+        return res.status(500).json({ mensaje: "Error en el servidor", detalle: String(error) });
     }
 };
 
@@ -34,7 +34,7 @@ export const postEmpleados = async (req: Request, res: Response) => {
             salario,
         });
     } catch (error) {
-        return res.status(500).json({ mensaje: "Error en el servidor" });
+        return res.status(500).json({ mensaje: "Error en el servidor", detalle: String(error) });
     }
 };
 
@@ -54,7 +54,7 @@ export const putEmpleados = async (req: Request, res: Response) => {
 
         res.json(rows[0]);
     } catch (error) {
-        return res.status(500).json({ mensaje: "Error en el servidor" });
+        return res.status(500).json({ mensaje: "Error en el servidor", detalle: String(error) });
     }
 };
 
@@ -66,6 +66,6 @@ export const deleteEmpleados = async (req: Request, res: Response) => {
 
         res.sendStatus(204);
     } catch (error) {
-        return res.status(500).json({ mensaje: "Error en el servidor" });
+        return res.status(500).json({ mensaje: "Error en el servidor", detalle: String(error) });
     }
 };
